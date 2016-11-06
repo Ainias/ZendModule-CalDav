@@ -1,0 +1,27 @@
+{
+  "name":        "ainias/zend-module-user-management",
+  "description": "Zend Framework 3 Module for user management",
+  "type":        "library",
+  "keywords":    [
+    "module",
+    "zf3"
+  ],
+  "authors":     [
+    {
+      "name": "Ainias"
+    }
+  ],
+  "require": {
+    "php":                                "^7.0",
+    "zendframework/zend-router": "^3.0",
+    "zendframework/zend-mvc": "^3.0"
+   },
+  "require-dev": {
+    },
+
+  "autoload": {
+    "psr-4": {
+      "Ainias\\UserManagement\\": "src/"
+    }
+  }
+}

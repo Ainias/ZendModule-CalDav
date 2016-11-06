@@ -2,6 +2,7 @@
 
 namespace Ainias\CalDav;
 
+use Ainias\CalDav\Controller\IndexController;
 use Zend\Router\Http\Segment;
 
 return array(
@@ -12,7 +13,7 @@ return array(
                 'options' => [
                     'route'    => '/calDav',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
                         'action'     => 'getCalendars',
                         'resource' => 'default',
                     ],

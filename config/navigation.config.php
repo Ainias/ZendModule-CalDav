@@ -6,7 +6,7 @@ return array(
     'navigation' => array(
         'left' => array(
             array(
-                'label' => 'Ainias\CalDav',
+                'label' => 'CalDav',
                 'resource' => 'default',
                 'route' => 'calDav',
             )

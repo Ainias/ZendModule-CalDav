@@ -2,12 +2,12 @@
 
 namespace Ainias\CalDav;
 
-use Zend\Mvc\Service\ServiceListenerFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return array(
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => ServiceListenerFactory::class,
+            Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
 );

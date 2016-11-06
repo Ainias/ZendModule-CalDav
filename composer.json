@@ -21,7 +21,7 @@
 
   "autoload": {
     "psr-4": {
-      "Ainias\\UserManagement\\": "src/"
+      "Ainias\\CalDav\\": "src/"
     }
   }
 }

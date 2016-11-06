@@ -1,5 +1,5 @@
 {
-  "name":        "ainias/zend-module-user-management",
+  "name":        "ainias/zend-module-cal-dav",
   "description": "Zend Framework 3 Module for user management",
   "type":        "library",
   "keywords":    [

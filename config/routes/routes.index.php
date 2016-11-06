@@ -13,10 +13,23 @@ return array(
                     'route'    => '/calDav',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action'     => 'getCalendars',
                         'resource' => 'default',
                     ],
                 ],
+//                'child_routes' => [
+//                    'calendars' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route'    => '/calendars',
+//                            'defaults' => [
+//                                'controller' => Controller\IndexController::class,
+//                                'action'     => 'index',
+//                                'resource' => 'default',
+//                            ],
+//                        ],
+//                    ],
+//                ]
             ],
         ],
     ],

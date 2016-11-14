@@ -8,9 +8,22 @@
 namespace Ainias\CalDav;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\Mvc\HttpMethodListener;
+use Zend\Mvc\MvcEvent;
 
 class Module implements ConfigProviderInterface
 {
+    public function onBootstrap(MvcEvent $event)
+    {
+        $serviceManager = $event->getApplication()->getServiceManager();
+//        $event->getApplication()->getEventManager()->getSharedManager()->attach()
+//        /** @var HttpMethodListener $httpMethodListener */
+        $httpMethodListener = $serviceManager->get("HttpMethodListener");
+        $httpMethodListener->setAllowedMethods(array_merge($httpMethodListener->getAllowedMethods(), [
+            "REPORT",
+        ]));
+    }
+
     public function getConfig()
     {
         $config = array();

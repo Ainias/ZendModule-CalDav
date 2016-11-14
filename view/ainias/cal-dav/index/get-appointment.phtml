@@ -1,0 +1,40 @@
+<?php
+echo '<?xml version="1.0" encoding="utf-8" ?>'.PHP_EOL;
+?>
+<multistatus xmlns="DAV:" xmlns:C="urn:ietf:params:xml:ns:caldav">
+    <response>
+        <href>/caldav/appointment/0d97f0ef-2a54-4502-a257-3ade074df206.ics</href>
+        <propstat>
+            <prop>
+                <getetag>"661f503450b61ee5c53a212f5a2569b47"</getetag>
+                <C:calendar-data>BEGIN:VCALENDAR
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+<?= $this->vEvent; ?>
+END:VEVENT
+END:VCALENDAR
+                </C:calendar-data>
+            </prop>
+            <status>HTTP/1.1 200 OK</status>
+        </propstat>
+    </response>
+</multistatus>
+

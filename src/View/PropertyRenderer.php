@@ -23,7 +23,7 @@ class PropertyRenderer extends AbstractHelper
 
         if ($properties instanceof Property)
         {
-            return $this->renderProperty($properties);
+            return $this->renderProperties([$properties]);
         }
         else
         {
@@ -33,13 +33,13 @@ class PropertyRenderer extends AbstractHelper
 
     public function renderProperties($properties)
     {
-        $propertyString = "";
+        $propertyString = '<?xml version="1.0" encoding="utf-8" ?>'.PHP_EOL.'<d:multistatus xmlns:d="DAV:" xmlns:cs="http://calendarserver.org/ns/" xmlns:c="urn:ietf:params:xml:ns:caldav">'.PHP_EOL;
         /** @var Property $property */
         foreach ($properties as $property)
         {
             $propertyString .= $this->renderProperty($property);
         }
-        return $propertyString;
+        return $propertyString.PHP_EOL."</d:multistatus>";
     }
 
     public function renderProperty(Property $property)

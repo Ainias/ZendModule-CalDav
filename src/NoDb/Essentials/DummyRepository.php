@@ -6,7 +6,7 @@
  * Time: 03:53
  */
 
-namespace Ainias\CalDav\NoDb\Repository;
+namespace Ainias\CalDav\NoDb\Essentials;
 
 
 use Ainias\CalDav\NoDb\ICalendar\VCalendar;
@@ -17,7 +17,7 @@ use Ainias\CalDav\NoDb\Property\Property;
 use Ainias\CalDav\NoDb\Property\ReferenceProperty;
 use Ainias\CalDav\NoDb\PropertyFilter;
 
-class DummyRepository implements PropertyRepositoryInterface
+class DummyRepository implements PropertyRepository
 {
     protected $calendarProperties;
     protected $vCalendarProperties;
@@ -70,7 +70,7 @@ class DummyRepository implements PropertyRepositoryInterface
         $this->vCalendarProperties[] = $property;
     }
 
-    public function propfind(PropertyFilter $filter)
+    public function query(PropertyFilter $filter)
     {
         return $this->calendarProperties;
     }

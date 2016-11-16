@@ -88,7 +88,7 @@ class VCalendar extends VComponent
             {
                 $eventString .= $vEvent.PHP_EOL;
             }
-            return $eventString;
+            return $eventString.PHP_EOL;
         }
         else
         {

@@ -3,7 +3,7 @@
 namespace Ainias\CalDav\Controller;
 
 use Ainias\CalDav\NoDb\ICalendar\VEvent;
-use Ainias\CalDav\NoDb\Property;
+use Ainias\CalDav\NoDb\Property\Property;
 use Ainias\CalDav\NoDb\PropertyFilter;
 use Ainias\CalDav\NoDb\Repository\DummyRepository;
 use Ainias\CalDav\NoDb\Request\RequestManager;
@@ -36,11 +36,24 @@ class IndexController extends AbstractActionController
         if ($method == "REPORT") {
             $properties = $dummyRepository->calendarQuery($propertyFilter);
         } else if ($method == "PROPFIND") {
-            $properties = $dummyRepository->propfind($propertyFilter);
+            if (strpos( $request->getContent(), "getcontenttype") !== false)
+            {
+                $properties = $dummyRepository->propfindEvents();
+            }
+            else
+            {
+                $properties = $dummyRepository->propfind($propertyFilter);
+            }
         } else {
             return $this->triggerDispatchError();
-
         }
+
+        /** @var Response $response */
+        $response = $this->getResponse();
+        $response->getHeaders()->addHeaderLine("Content-Location", "/calDav/");
+        $response->getHeaders()->addHeaderLine("Etag", rand(0,999));
+        $response->getHeaders()->addHeaderLine("Dav", "1, 2, 3, access-control, calendar-access, calendar-schedule; extended-mkcol, bind, addressbook, calendar-auto-schedule, calendar-proxy");
+        $response->getHeaders()->addHeaderLine("Dav", "extended-mkcol, bind, addressbook, calendar-auto-schedule, calendar-proxy");
 
         $viewModel = new ViewModel();
         $viewModel->setVariable("properties", $properties);
@@ -121,7 +134,6 @@ class IndexController extends AbstractActionController
         $request = $this->getRequest();
         $this->logValue(PHP_EOL . PHP_EOL);
         $this->logValue($request->toString());
-
     }
 
     protected function logValue($value)

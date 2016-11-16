@@ -8,14 +8,19 @@
 
 namespace Ainias\CalDav\View;
 
-
-use Ainias\CalDav\NoDb\Property;
+use Ainias\CalDav\NoDb\Property\InlineProperty;
+use Ainias\CalDav\NoDb\Property\Property;
 use Zend\View\Helper\AbstractHelper;
 
 class PropertyRenderer extends AbstractHelper
 {
-    public function __invoke($properties)
+    public function __invoke($properties = null)
     {
+        if ($properties == null)
+        {
+            return $this;
+        }
+
         if ($properties instanceof Property)
         {
             return $this->renderProperty($properties);
@@ -39,25 +44,6 @@ class PropertyRenderer extends AbstractHelper
 
     public function renderProperty(Property $property)
     {
-        $propertyString = "";
-        $properties = $property->getProperties();
-        $status = ($property->getStatus()==200?"200 OK":"404 NOT FOUND");
-        foreach ($properties as $name => $value)
-        {
-            $propertyString .= "<".$name.">".$value."</".$name.">\n";
-        }
-
-        $href = $property->getHref();
-        return <<<XML
-<d:response>
-        <d:href>$href</d:href>
-        <d:propstat>
-            <d:prop>
-                $propertyString
-            </d:prop>
-            <d:status>HTTP/1.1 $status</d:status>
-        </d:propstat>
-    </d:response>
-XML;
+        return $property->__toString();
     }
 }

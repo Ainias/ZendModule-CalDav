@@ -12,7 +12,6 @@ return array(
             'calDav' => [
                 'type' => Segment::class,
                 'options' => [
-                    'verb' => 'REPORT',
                     'route'    => '/calDav[/]',
                     'defaults' => [
                         'controller' => IndexController::class,
@@ -44,7 +43,18 @@ return array(
                             ],
                         ],
                     ],
-                ]
+                    'calDavOptions' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'options',
+                            'defaults' => [
+                                'contoller' => IndexController::class,
+                                'action' => 'getUsers',
+                                'resource' => 'default'
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
     ],

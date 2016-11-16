@@ -11,7 +11,7 @@ namespace Ainias\CalDav\NoDb\Repository;
 
 use Ainias\CalDav\NoDb\PropertyFilter;
 
-interface AppointmentRepositoryInterface
+interface PropertyRepositoryInterface
 {
     public function propfind(PropertyFilter $filter);
 

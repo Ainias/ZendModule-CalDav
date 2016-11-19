@@ -2,14 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: silas
- * Date: 16.11.16
- * Time: 17:30
+ * Date: 17.11.16
+ * Time: 09:58
  */
 
 namespace Ainias\CalDav\NoDb\Essentials;
 
 
+use Ainias\CalDav\NoDb\PropertyFilter;
+
 interface PropertyFilterParser
 {
-    public function parseXmlToPropertyFilter($xmlStream);
+    /**
+     * @param $xmlStream
+     * @param PropertyFilter|null $filter
+     * @return PropertyFilter
+     */
+    public function parseXmlToPropertyFilter($xmlStream, $filter = null);
 }

@@ -9,6 +9,8 @@
 namespace Ainias\CalDav\NoDb\Property;
 
 
+use Zend\View\Renderer\RendererInterface;
+
 class ParentProperty extends Property
 {
     /** @var string */
@@ -16,6 +18,17 @@ class ParentProperty extends Property
 
     /** @var array */
     private $failedProperties;
+
+    /** @var ParentProperty[] */
+    private $subParentProperties;
+
+    public function __construct($href = null, $properties = [])
+    {
+        parent::__construct($properties);
+        $this->setHref($href);
+        $this->failedProperties = [];
+        $this->subParentProperties = [];
+    }
 
     /**
      * @return mixed
@@ -113,5 +126,40 @@ XML;
         $failedPropertyString
     </d:response>
 XML;
+    }
+
+    protected function doPrepare(RendererInterface $renderer)
+    {
+        $this->setHref($renderer->url("calDav", ["propertyHref" => $this->getHref()]));
+    }
+
+    public function getAsReference()
+    {
+        return new ReferenceProperty($this->getHref());
+    }
+
+    /**
+     * @return ParentProperty[]
+     */
+    public function getSubParentProperties()
+    {
+        return $this->subParentProperties;
+    }
+
+    /**
+     * @param ParentProperty[] $subParentProperties
+     */
+    public function setSubParentProperties($subParentProperties)
+    {
+        $this->subParentProperties = [];
+        foreach ($subParentProperties as $parentProperty)
+        {
+            $this->addSubParentProperty($parentProperty);
+        }
+    }
+
+    public function addSubParentProperty(ParentProperty $subParentProperty)
+    {
+        $this->subParentProperties[$subParentProperty->getHref()] = $subParentProperty;
     }
 }

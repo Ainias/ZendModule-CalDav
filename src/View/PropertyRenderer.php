@@ -9,31 +9,47 @@
 namespace Ainias\CalDav\View;
 
 use Ainias\CalDav\NoDb\Property\InlineProperty;
+use Ainias\CalDav\NoDb\Property\ParentProperty;
 use Ainias\CalDav\NoDb\Property\Property;
+use Ainias\CalDav\NoDb\Property\ReferenceProperty;
 use Zend\View\Helper\AbstractHelper;
 
 class PropertyRenderer extends AbstractHelper
 {
     public function __invoke($properties = null)
     {
-        if ($properties == null)
+        if ($properties === null)
         {
             return $this;
         }
 
         if ($properties instanceof Property)
         {
+            $this->prepareProperty($properties);
             return $this->renderProperties([$properties]);
         }
         else
         {
+            $this->prepareProperties($properties);
             return $this->renderProperties($properties);
         }
     }
 
+    public function prepareProperties($properties)
+    {
+        foreach ($properties as $property)
+        {
+            $this->prepareProperty($property);
+        }
+    }
+    public function prepareProperty(Property $property)
+    {
+        $property->prepare($this->getView());
+    }
+
     public function renderProperties($properties)
     {
-        $propertyString = '<?xml version="1.0" encoding="utf-8" ?>'.PHP_EOL.'<d:multistatus xmlns:d="DAV:" xmlns:cs="http://calendarserver.org/ns/" xmlns:c="urn:ietf:params:xml:ns:caldav">'.PHP_EOL;
+        $propertyString = '<?xml version="1.0" encoding="utf-8" ?>'.PHP_EOL.'<d:multistatus xmlns:d="DAV:" xmlns:cs="http://calendarserver.org/ns/" xmlns:c="urn:ietf:params:xml:ns:caldav" xmlns:ic="http://apple.com/ns/ical/">'.PHP_EOL;
         /** @var Property $property */
         foreach ($properties as $property)
         {

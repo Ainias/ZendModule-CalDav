@@ -8,6 +8,7 @@
 
 namespace Ainias\CalDav\NoDb\Property;
 
+use Zend\View\Renderer\RendererInterface;
 
 class Property
 {
@@ -26,8 +27,15 @@ class Property
 
     const PROP_GET_CONTENT_TYPE = "d:getcontenttype";
 
+    const PROP_CALENDAR_HOME_SET = "c:calendar-home-set";
+
     /** @var string[] */
     private $properties;
+
+    /** @var Property[] */
+    private $children;
+
+    private $prepared;
 
     /**
      * Property constructor.
@@ -35,7 +43,9 @@ class Property
      */
     public function __construct(array $properties = [])
     {
-        $this->properties = $properties;
+        $this->properties = [];
+        $this->setProperties($properties);
+        $this->prepared = false;
     }
 
     /**
@@ -51,12 +61,20 @@ class Property
      */
     public function setProperties($properties)
     {
-        $this->properties = $properties;
+        $this->properties = [];
+        foreach ($properties as $name => $property)
+        {
+            $this->setProperty($name, $property);
+        }
     }
 
     public function setProperty($name, $value)
     {
         $this->properties[$name] = $value;
+        if ($value instanceof Property)
+        {
+            $this->children[] = $value;
+        }
     }
 
     public function getProperty($name)
@@ -66,6 +84,11 @@ class Property
             return $this->properties[$name];
         }
         return null;
+    }
+
+    public function hasProperty($name)
+    {
+        return isset($this->properties[$name]);
     }
 
     public function __toString()
@@ -81,7 +104,7 @@ class Property
 
     protected function singlePropertyToString($name, $value)
     {
-        if ($name == null)
+        if ($name == null || is_int($value))
         {
             $name = $value;
             $value = null;
@@ -98,5 +121,44 @@ class Property
             }
             return "<".$name.">".$value."</".$name.">";
         }
+    }
+
+    /**
+     * @return Property[]
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param Property[] $children
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
+    }
+
+    public function prepare(RendererInterface $renderer)
+    {
+        if (!$this->prepared)
+        {
+            $this->doPrepare($renderer);
+            $this->prepareChildren($renderer);
+            $this->prepared = true;
+        }
+    }
+
+    protected function prepareChildren(RendererInterface $renderer)
+    {
+        foreach ($this->children as $child)
+        {
+            $child->prepare($renderer);
+        }
+    }
+
+    protected function doPrepare(RendererInterface $renderer)
+    {
+
     }
 }

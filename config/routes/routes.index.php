@@ -12,7 +12,10 @@ return array(
             'calDav' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/calDav[/]',
+                    'route'    => '/calDav[/[:propertyHref]]',
+                    'constaints' => [
+                        'propertyHref' => ''
+                    ],
                     'defaults' => [
                         'controller' => CalDavController::class,
                         'action'     => 'index',

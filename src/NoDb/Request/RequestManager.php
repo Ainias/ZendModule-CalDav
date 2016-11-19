@@ -29,7 +29,7 @@ class RequestManager
         }
 
         $filter = $this->buildFilter($prop[0]);
-        $filter->setHref((string)$href[0]);
+        $filter->setPropertyHref((string)$href[0]);
         return $filter;
     }
 

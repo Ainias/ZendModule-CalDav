@@ -8,7 +8,6 @@
 
 namespace Ainias\CalDav\Factory\Controller;
 
-
 use Ainias\CalDav\Controller\CalDavController;
 use Ainias\CalDav\NoDb\Essentials\PropertyFilterParser;
 use Ainias\CalDav\NoDb\Essentials\PropertyRepository;

@@ -35,21 +35,13 @@ class CalDavController extends AbstractActionController
         $request = $this->getRequest();
 
         $propertyFilter = $this->propertyFilterParser->parseXmlToPropertyFilter($request->getContent());
-        $properties = $this->propertyRepository->query($propertyFilter);
+        $propertyHref = $this->params("propertyHref", null);
 
-        //TODO löschen, wenn Logik einmal funktioniert
-        if (strpos($request->getContent(), "getcontenttype") !== false)
-        {
-            /** @var DummyRepository $propertyRepository */
-            $propertyRepository = $this->propertyRepository;
-            $properties = $propertyRepository->propfindEvents();
+        if ($propertyHref != null) {
+            $propertyFilter->setRootHref($propertyHref);
         }
-        else if ($request->getMethod() == "REPORT")
-        {
-            /** @var DummyRepository $propertyRepository */
-            $propertyRepository = $this->propertyRepository;
-            $properties = $propertyRepository->calendarQuery($propertyFilter);
-        }
+
+        $properties = $this->propertyRepository->query($propertyFilter);
 
         /** @var Response $response */
         $response = $this->getResponse();

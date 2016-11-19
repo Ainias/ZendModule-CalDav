@@ -14,12 +14,18 @@ class PropertyFilter
     /** @var array */
     private $selectedFields;
 
+    /** @var array */
+    private $propertyHrefs;
+
+    private $rootHref;
+
     /**
      * AppointmentFilter constructor.
      */
     public function __construct()
     {
         $this->selectedFields = [];
+        $this->rootHref = null;
     }
 
     public function addField($field)
@@ -36,5 +42,42 @@ class PropertyFilter
     public function getSelectedFields()
     {
         return $this->selectedFields;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPropertyHrefs()
+    {
+        return $this->propertyHrefs;
+    }
+
+    /**
+     * @param array $propertyHrefs
+     */
+    public function setPropertyHrefs($propertyHrefs)
+    {
+        $this->propertyHrefs = $propertyHrefs;
+    }
+
+    public function addPropertyHref($propertyHref)
+    {
+        $this->propertyHrefs[] = $propertyHref;
+    }
+
+    /**
+     * @return null
+     */
+    public function getRootHref()
+    {
+        return $this->rootHref;
+    }
+
+    /**
+     * @param null $rootHref
+     */
+    public function setRootHref($rootHref)
+    {
+        $this->rootHref = $rootHref;
     }
 }

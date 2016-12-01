@@ -31,7 +31,7 @@ class Module implements ConfigProviderInterface
 
                     $response->getHeaders()->addHeaderLine("ALLOW","OPTIONS, PROPFIND, REPORT, GET, HEAD, ACL");
                     $response->getHeaders()->addHeaderLine("Content-Location", "/calDav/");
-                    $response->getHeaders()->addHeaderLine("Etag", rand(0,999));
+//                    $response->getHeaders()->addHeaderLine("Etag", rand(0,999));
 //                    $response->getHeaders()->addHeaderLine("Dav", "1, 2, 3, access-control, calendar-access, calendar-schedule; extended-mkcol, bind, addressbook, calendar-auto-schedule, calendar-proxy");
 //                    $response->getHeaders()->addHeaderLine("Dav", "calendar-proxy");
 //                    extended-mkcol, bind, addressbook,

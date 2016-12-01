@@ -12,6 +12,7 @@ use Ainias\CalDav\Controller\CalDavController;
 use Ainias\CalDav\NoDb\Essentials\PropertyFilterParser;
 use Ainias\CalDav\NoDb\Essentials\PropertyRepository;
 use Interop\Container\ContainerInterface;
+use Zend\Authentication\Adapter\Http\ResolverInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class CalDavControllerFactory implements FactoryInterface
@@ -24,6 +25,9 @@ class CalDavControllerFactory implements FactoryInterface
         /** @var PropertyRepository $propertyRepository */
         $propertyRepository = $container->get(PropertyRepository::class);
 
-        return new CalDavController($propertyFilterParser, $propertyRepository);
+        /** @var ResolverInterface $basicResolver */
+        $basicResolver = $container->get("calDavBasicResolver");
+
+        return new CalDavController($propertyFilterParser, $propertyRepository, $basicResolver);
     }
 }

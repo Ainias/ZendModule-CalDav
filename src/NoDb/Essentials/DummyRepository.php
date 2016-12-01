@@ -47,14 +47,13 @@ class DummyRepository extends FilterRepository
             ]),
             Property::PROP_SUPPORTED_CALENDAR_COMPONENT_SET => new Property(['c:comp name = "VEVENT"'])
         ]);
-        $calendarProperty->createCTag();
         $properties[] = $calendarProperty;
         $userOne->setProperty(Property::PROP_CALENDAR_HOME_SET, $calendarProperty->getAsReference());
         $userTwo->setProperty(Property::PROP_CALENDAR_HOME_SET, $calendarProperty->getAsReference());
 
         $vEvent = new VEvent();
         $vEvent->setUid("0010");
-        $vEvent->setSummary("Odin");
+        $vEvent->setSummary("Odine");
         $vEvent->setDtstart(\DateTime::createFromFormat("Y-m-d H:i:s", "2016-11-19 12:30:05"));
         $vEvent->setDtend(\DateTime::createFromFormat("Y-m-d H:i:s", "2016-11-19 13:29:08"));
 
@@ -63,18 +62,18 @@ class DummyRepository extends FilterRepository
         $vCalendar->setCalscale("GREGORIAN");
         $vCalendar->addVEvent($vEvent);
 
-        $property = new EventProperty("firstEvent", [
+        $firstEvent = new EventProperty("firstEvent", [
             Property::PROP_GET_CONTENT_TYPE => "text/calendar; component=vevent",
             Property::PROP_RESOURCE_TYPE => null,
             Property::PROP_CALENDA_DATA => $vCalendar
         ]);
-        $property->createETag();
-        $properties[] = $property;
-        $calendarProperty->addEvent($property);
+        $firstEvent->createETag();
+        $properties[] = $firstEvent;
+        $calendarProperty->addEvent($firstEvent);
 
         $vEvent = new VEvent();
         $vEvent->setUid("0011");
-        $vEvent->setSummary("Nix Odin");
+        $vEvent->setSummary("Nix Odin :p");
         $vEvent->setDtstart(\DateTime::createFromFormat("Y-m-d H:i:s", "2016-11-22 12:30:05"));
         $vEvent->setDtend(\DateTime::createFromFormat("Y-m-d H:i:s", "2016-11-22 13:29:08"));
 
@@ -83,15 +82,16 @@ class DummyRepository extends FilterRepository
         $vCalendar->setCalscale("GREGORIAN");
         $vCalendar->addVEvent($vEvent);
 
-        $property = new EventProperty("secondEvent", [
+        $secondEvent = new EventProperty("secondEvent", [
             Property::PROP_GET_CONTENT_TYPE => "text/calendar; component=vevent",
             Property::PROP_RESOURCE_TYPE => null,
             Property::PROP_CALENDA_DATA => $vCalendar
         ]);
-        $property->createETag();
-        $properties[] = $property;
-        $calendarProperty->addEvent($property);
+        $secondEvent->createETag();
+        $properties[] = $secondEvent;
+        $calendarProperty->addEvent($secondEvent);
 
+        $calendarProperty->createCTag();
         parent::__construct($properties);
     }
 }

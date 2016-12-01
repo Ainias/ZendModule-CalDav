@@ -14,7 +14,10 @@
   "require": {
     "php":                                "^7.0",
     "zendframework/zend-router": "^3.0",
-    "zendframework/zend-mvc": "^3.0"
+    "zendframework/zend-mvc": "^3.0",
+    "zendframework/zend-http": "^2.5",
+    "zendframework/zend-authentication": "^2.5",
+    "zendframework/zend-crypt": "^3.1"
    },
   "require-dev": {
     },

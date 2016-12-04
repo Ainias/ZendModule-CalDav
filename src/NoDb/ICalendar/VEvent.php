@@ -35,6 +35,9 @@ class VEvent extends VComponent
     /** @var  string */
     protected $transp;
 
+    /** @var  string */
+    protected $description;
+
     /**
      * @return \DateTime
      */
@@ -161,6 +164,23 @@ class VEvent extends VComponent
     public function setTransp($transp)
     {
         $this->transp = $transp;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     protected function getPropertyLine(\ReflectionProperty $property)

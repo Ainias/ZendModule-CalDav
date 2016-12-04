@@ -39,7 +39,7 @@ class VEvent extends VComponent
     protected $description;
 
     /** @var  string */
-    protected $htmlDescritpion;
+    protected $htmlDescription;
 
     /**
      * @return \DateTime
@@ -189,17 +189,17 @@ class VEvent extends VComponent
     /**
      * @return string
      */
-    public function getHtmlDescritpion()
+    public function getHtmlDescription()
     {
-        return $this->htmlDescritpion;
+        return $this->htmlDescription;
     }
 
     /**
-     * @param string $htmlDescritpion
+     * @param string $htmlDescription
      */
-    public function setHtmlDescritpion($htmlDescritpion)
+    public function setHtmlDescription($htmlDescription)
     {
-        $this->htmlDescritpion = $htmlDescritpion;
+        $this->htmlDescription = $htmlDescription;
     }
 
     protected function getPropertyLine(\ReflectionProperty $property)

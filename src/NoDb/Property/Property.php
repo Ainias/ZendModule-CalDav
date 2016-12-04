@@ -44,6 +44,7 @@ class Property
     public function __construct(array $properties = [])
     {
         $this->properties = [];
+        $this->children = [];
         $this->setProperties($properties);
         $this->prepared = false;
     }

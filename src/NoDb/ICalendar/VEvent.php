@@ -186,21 +186,21 @@ class VEvent extends VComponent
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getHtmlDescription()
-    {
-        return $this->htmlDescription;
-    }
-
-    /**
-     * @param string $htmlDescription
-     */
-    public function setHtmlDescription($htmlDescription)
-    {
-        $this->htmlDescription = $htmlDescription;
-    }
+//    /**
+//     * @return string
+//     */
+//    public function getHtmlDescription()
+//    {
+//        return $this->htmlDescription;
+//    }
+//
+//    /**
+//     * @param string $htmlDescription
+//     */
+//    public function setHtmlDescription($htmlDescription)
+//    {
+//        $this->htmlDescription = $htmlDescription;
+//    }
 
     protected function getPropertyLine(\ReflectionProperty $property)
     {

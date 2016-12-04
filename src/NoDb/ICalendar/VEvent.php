@@ -205,6 +205,7 @@ class VEvent extends VComponent
     protected function getPropertyLine(\ReflectionProperty $property)
     {
         $string = "";
+        $property->setAccessible(true);
         if ($property->getName() == "dtstart" || $property->getName() == "dtend")
         {
             $property->setAccessible(true);
@@ -212,7 +213,6 @@ class VEvent extends VComponent
         }
         else if ($property->getName() == "htmlDescription" && $property->getValue($this) != null)
         {
-            $property->setAccessible(true);
             $string .= "X-ALT-DESC;FMTTYPE=text/html:".$property->getValue($this).PHP_EOL;
         }
         else

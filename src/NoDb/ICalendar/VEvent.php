@@ -38,6 +38,9 @@ class VEvent extends VComponent
     /** @var  string */
     protected $description;
 
+    /** @var  string */
+    protected $htmlDescritpion;
+
     /**
      * @return \DateTime
      */
@@ -183,6 +186,22 @@ class VEvent extends VComponent
         $this->description = $description;
     }
 
+    /**
+     * @return string
+     */
+    public function getHtmlDescritpion()
+    {
+        return $this->htmlDescritpion;
+    }
+
+    /**
+     * @param string $htmlDescritpion
+     */
+    public function setHtmlDescritpion($htmlDescritpion)
+    {
+        $this->htmlDescritpion = $htmlDescritpion;
+    }
+
     protected function getPropertyLine(\ReflectionProperty $property)
     {
         $string = "";
@@ -190,6 +209,11 @@ class VEvent extends VComponent
         {
             $property->setAccessible(true);
             $string .= $this->formatPropertyName($property->getName()).";".$this->getTimeZoneId().":".$this->dateTimeToString($property->getValue($this)).PHP_EOL;
+        }
+        else if ($property->getName() == "htmlDescription" && $property->getValue($this) != null)
+        {
+            $property->setAccessible(true);
+            $string .= "X-ALT-DESC;FMTTYPE=text/html:".$property->getValue($this).PHP_EOL;
         }
         else
         {

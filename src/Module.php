@@ -7,6 +7,7 @@
 
 namespace Ainias\CalDav;
 
+use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\MvcEvent;
@@ -25,7 +26,7 @@ class Module implements ConfigProviderInterface
         $event->getApplication()->getEventManager()->attach(
             MvcEvent::EVENT_DISPATCH,
             function (MvcEvent $e) {
-                if ($e->getRequest()->getMethod() == 'OPTIONS') {
+                if ($e->getRequest() instanceof Request && $e->getRequest()->getMethod() == 'OPTIONS') {
                     /** @var Response $response */
                     $response = $e->getResponse();
 
